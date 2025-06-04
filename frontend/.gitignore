@@ -1,0 +1,29 @@
+# Dependencias
+node_modules/
+
+# Carpeta de build de Vite
+dist/
+.vite/ # Cache de Vite
+
+# Archivos de variables de entorno
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos de configuración de editores
+.idea/
+.vscode/ # Considera si quieres versionar settings.json o launch.json
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de cobertura
+coverage/

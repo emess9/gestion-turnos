@@ -1,0 +1,59 @@
+# Ignorar la carpeta de dependencias de Node.js
+node_modules/
+
+# Ignorar archivos de variables de entorno
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# Ignorar archivos de log
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Archivos de configuración de IDEs y editores
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de cobertura de tests
+coverage/
+.nyc_output/
+
+# Archivos de build (si tuvieras un proceso de build para el backend)
+dist/
+build/
+
+# Archivos temporales o de caché
+.tmp/
+.cache/
+*.cache
+
+# Archivos de dependencias de Yarn (si usaras Yarn en lugar de npm)
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# Archivos de SQLite (si en algún momento usaras SQLite para algo temporal)
+*.sqlite3
+*.sqlite3-journal
+
+# Archivos de volcado de errores de Node.js
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
