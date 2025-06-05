@@ -1,10 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+
 // const cors = require('cors'); // Aún no lo necesitamos, pero lo dejaremos comentado para el futuro
 
 //  rutas de autenticación
 const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
@@ -25,6 +27,7 @@ mongoose.connect(mongoURI)
 
 // Rutas de la API
 app.use('/api/auth', authRoutes); 
+app.use('/api/users', userRoutes);
 
 app.get('/api', (req, res) => {
   res.json({ message: 'Hola desde el backend de la peluquería! API funcionando.' });
