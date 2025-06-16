@@ -1,0 +1,99 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.date-picker-container {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.date-picker-container label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #1d3557;
+}
+
+.date-picker-container input[type="date"] {
+  padding: 0.5rem;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 1.1rem;
+}
+
+.appointments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+.appointment-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+.appointment-card:hover {
+    transform: translateY(-5px);
+}
+
+.appointment-card h3 {
+  margin-top: 0;
+  font-size: 1.8rem;
+  color: #1d3557;
+}
+
+.appointment-card p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.status-disponible {
+  color: #2e7d32; /* Verde */
+  font-weight: bold;
+}
+
+.status-reservado {
+  color: #c62828; /* Rojo */
+  font-weight: bold;
+}
+
+.book-btn {
+  background-color: #fca311;
+  color: #1d3557;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.book-btn:hover {
+  background-color: #e89505;
+}
+
+.book-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.loading-message, .error-message {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+}
+
+.error-message {
+    color: #c62828;
+}

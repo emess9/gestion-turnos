@@ -33,3 +33,10 @@ p {
   line-height: 1.6;
   margin-bottom: 16px;
 }
+
+/* para el navbar */
+
+.main-content {
+  /* Añadimos un padding superior igual a la altura de la navbar */
+  padding-top: 100px; 
+}

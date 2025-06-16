@@ -1,0 +1,83 @@
+.navbar {
+  background: #1d3557; /* Un azul oscuro, como en nuestro App.css */
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 24px;
+}
+
+.navbar-logo {
+  color: #fff;
+  justify-self: start;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  text-align: center;
+}
+
+.nav-item {
+  height: 80px;
+}
+
+.nav-links {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+  cursor: pointer;
+}
+
+.nav-links:hover {
+  border-bottom: 4px solid #fca311; /* Un acento de color para el hover */
+  transition: all 0.2s ease-out;
+}
+
+
+.nav-user {
+  cursor: default;
+  color: #fca311; /* Color de acento para destacar */
+}
+
+/* Estilos para el botón de logout para que parezca un enlace */
+.nav-logout-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-family: inherit; /* Hereda la fuente de la navbar */
+  font-size: inherit; /* Hereda el tamaño de fuente */
+  cursor: pointer;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.nav-logout-btn:hover {
+  border-bottom: 4px solid #fca311;
+  transition: all 0.2s ease-out;
+}
