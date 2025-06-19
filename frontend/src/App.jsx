@@ -1,26 +1,33 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-// Importamos el componente Navbar
+// Importamos los componentes
 import Navbar from './components/Navbar';
+import AdminRoute from './components/AdminRoute'; 
 
-// Importamos los componentes de nuestras páginas
+// Importamos las páginas
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import AdminDashboard from './pages/AdminDashboard'; 
 
 function App() {
   return (
     <>
-      {/* 1. La Navbar se coloca aquí, fuera de <Routes> */}
       <Navbar />
       
-      {/* 2. Un contenedor principal para el contenido de la página */}
       <main className="main-content">
         <Routes>
+          {/* Rutas Públicas */}
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+
+          {/* Ruta de Administrador Protegida */}
+          <Route path="/admin/dashboard" element={<AdminRoute />}>
+            <Route index element={<AdminDashboard />} /> 
+          </Route>
+
         </Routes>
       </main>
     </>
@@ -28,3 +35,4 @@ function App() {
 }
 
 export default App;
+

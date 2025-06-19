@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { getAppointmentsByDate, bookAppointment } from '../services/appointmentService';
+import { getServices } from '../services/serviceService'; 
 import { useAuth } from '../context/AuthContext';
-import './HomePage.css'; // Importamos los nuevos estilos
+import './HomePage.css';
 
-// Función helper para obtener la fecha de hoy en formato YYYY-MM-DD
 const getTodayString = () => {
   const today = new Date();
   return today.toISOString().split('T')[0];
 };
 
-// Función helper para formatear la fecha a DD/MM/YYYY (formato argentino)
 const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
+    if (!dateString) return '';
+    const [year, month, day] = dateString.split('-');
     return `${day}/${month}/${year}`;
 };
 
-
 const HomePage = () => {
-  const { user, token, isLoggedIn } = useAuth(); // Obtenemos el usuario y el token del contexto
+  const { token, isLoggedIn } = useAuth();
 
   const [appointments, setAppointments] = useState([]);
+  const [services, setServices] = useState([]); // servicios
   const [selectedDate, setSelectedDate] = useState(getTodayString());
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -36,18 +33,27 @@ const HomePage = () => {
       setAppointments(data);
     } catch (err) {
       setError(err.message || 'No se pudieron cargar los turnos.');
-      setAppointments([]); // Limpiamos los turnos si hay un error
+      setAppointments([]);
     } finally {
       setLoading(false);
     }
   };
-
-  // useEffect para cargar los turnos cuando la página carga o la fecha cambia
+  
+  // 3. useEffect para cargar servicios y turnos al inicio
   useEffect(() => {
+    const fetchInitialData = async () => {
+        try {
+            const servicesData = await getServices();
+            setServices(servicesData);
+        } catch (error) {
+            console.error("Error al cargar servicios:", error);
+        }
+    };
+    
+    fetchInitialData();
     fetchAppointments(selectedDate);
-  }, [selectedDate]); // Se ejecuta cada vez que 'selectedDate' cambia
+  }, [selectedDate]);
 
-  // Función para manejar la reserva de un turno
   const handleBookAppointment = async (appointmentId) => {
     if (!isLoggedIn) {
       alert('Debes iniciar sesión para reservar un turno.');
@@ -62,7 +68,6 @@ const HomePage = () => {
     try {
       await bookAppointment(appointmentId, token);
       alert('¡Turno reservado con éxito!');
-      // Volvemos a cargar los turnos para reflejar el cambio de estado
       fetchAppointments(selectedDate);
     } catch (err) {
       alert(`Error al reservar el turno: ${err.message}`);
@@ -71,6 +76,21 @@ const HomePage = () => {
 
   return (
     <div className="home-container">
+      <div className="services-section">
+        <h2>Nuestros Servicios</h2>
+        {services.length > 0 ? (
+          <ul className="services-list-home">
+            {services.map(service => (
+              <li key={service._id}>{service.nombre} - <span>{service.descripcion}</span></li>
+            ))}
+          </ul>
+        ) : (
+          <p>Cargando servicios...</p>
+        )}
+      </div>
+
+      <hr style={{width: '80%', margin: '2rem auto'}} />
+
       <h2>Reservar Turno</h2>
       <p>Selecciona una fecha para ver los turnos disponibles.</p>
       

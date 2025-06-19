@@ -42,4 +42,26 @@ export const bookAppointment = async (appointmentId, token) => {
   }
 
   return data;
+
+
+  
+};
+
+export const generateAppointmentsForDay = async (date, token) => {
+  const response = await fetch(`${API_URL}/generate`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ date }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Error al generar los turnos.');
+  }
+
+  return data;
 };

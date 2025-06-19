@@ -1,16 +1,15 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // 1. Importar nuestro hook useAuth
+import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
 
 const Navbar = () => {
-  // 2. Obtener el estado y las funciones del contexto
   const { user, isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout(); // Llama a la función logout del contexto
-    navigate('/login'); // Redirige al usuario a la página de login
+    logout();
+    navigate('/login');
   };
 
   return (
@@ -27,18 +26,21 @@ const Navbar = () => {
             </Link>
           </li>
           
-          {/* 3. Renderizado Condicional de los enlaces */}
           {isLoggedIn ? (
             // Si el usuario ESTÁ logueado
             <>
-              {/* Podríamos añadir un enlace a su perfil o turnos aquí */}
-              {/* <li className="nav-item">
-                <Link to="/mis-turnos" className="nav-links">
-                  Mis Turnos
-                </Link>
-              </li> */}
+              {}
+              {/* Mostrar enlace al Dashboard solo si el usuario es admin */}
+              {user.rol === 'admin' && (
+                <li className="nav-item">
+                  <Link to="/admin/dashboard" className="nav-links">
+                    Dashboard
+                  </Link>
+                </li>
+              )}
+              {}
+
               <li className="nav-item">
-                {/* Usamos un <span> para mostrar el nombre, no es un enlace */}
                 <span className="nav-links nav-user">Hola, {user.nombre}</span>
               </li>
               <li className="nav-item">
