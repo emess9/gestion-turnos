@@ -37,6 +37,39 @@ p {
 /* para el navbar */
 
 .main-content {
-  /* Añadimos un padding superior igual a la altura de la navbar */
   padding-top: 100px; 
+}
+
+
+    /* ESTILOS LIBRERIA TOAST*/
+    .toast-success {
+      background-color: #2e7d32; 
+      color: white;
+      font-weight: bold;
+    }
+
+    /* notificaciones de error */
+    .toast-error {
+      background-color: #c62828; 
+      color: white;
+      font-weight: bold;
+    }
+
+    .toast-confirm-btn, .toast-cancel-btn {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.toast-confirm-btn {
+  border-color: #81c784; 
+}
+
+.toast-cancel-btn {
+  border-color: #e57373; 
 }

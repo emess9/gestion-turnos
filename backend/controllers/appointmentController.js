@@ -109,9 +109,65 @@ const bookAppointment = async (req, res) => {
   }
 };
 
+// CANCELAR TURNOS
+
+const cancelAppointment = async (req, res) => {
+  try {
+    const appointment = await Appointment.findById(req.params.id);
+
+    if (!appointment) {
+      return res.status(404).json({ message: 'Turno no encontrado.' });
+    }
+
+    // Verificar que el turno esté reservado para poder cancelarlo
+    if (appointment.estado !== 'reservado') {
+      return res.status(400).json({ message: 'Este turno no está reservado.' });
+    }
+
+    // Verificar permisos:
+    // El usuario debe ser quien reservó el turno O debe ser un administrador.
+    // toString() es importante porque comparamos ObjectIDs.
+    const esDueñoDelTurno = appointment.clienteId.toString() === req.user._id.toString();
+    const esAdmin = req.user.rol === 'admin';
+
+    if (!esDueñoDelTurno && !esAdmin) {
+      return res.status(403).json({ message: 'No tienes permiso para cancelar este turno.' });
+    }
+
+    // Proceder con la cancelación:
+    appointment.estado = 'disponible';
+    appointment.clienteId = undefined; // o null
+
+    const updatedAppointment = await appointment.save();
+
+    res.status(200).json(updatedAppointment);
+
+  } catch (error) {
+    console.error('Error al cancelar el turno:', error);
+    res.status(500).json({ message: 'Error del servidor al cancelar el turno.' });
+  }
+};
+
+// obtener turnos de un usuario
+
+const getMyAppointments = async (req, res) => {
+  try {
+    const appointments = await Appointment.find({ clienteId: req.user._id })
+      .sort({ fecha: -1 }); // Ordenamos por fecha descendente 
+
+    res.status(200).json(appointments);
+
+  } catch (error) {
+    console.error('Error al obtener mis turnos:', error);
+    res.status(500).json({ message: 'Error del servidor al obtener los turnos.' });
+  }
+};
+
 
 module.exports = {
   generateAppointments,
   getAppointmentsByDay,
   bookAppointment,
+  cancelAppointment,
+  getMyAppointments,
 };

@@ -131,3 +131,19 @@
   font-weight: normal;
   color: #666;
 }
+
+.cancel-btn {
+  background-color: #e63946; /* Rojo para cancelar */
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #d00000;
+}

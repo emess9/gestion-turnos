@@ -4,20 +4,21 @@ const {
   generateAppointments,
   getAppointmentsByDay,
   bookAppointment,
+  cancelAppointment,
+  getMyAppointments, // obtener turnos de un cliente
 } = require('../controllers/appointmentController');
 const { protect, isAdmin } = require('../middlewares/authMiddleware');
 
-// --- Ruta de Administrador ---
-// Generar los turnos disponibles para un día
+// --- Rutas de Administrador ---
 router.post('/generate', protect, isAdmin, generateAppointments);
 
 // --- Ruta Pública ---
-// Obtener todos los turnos para un día específico (query param ?date=YYYY-MM-DD)
 router.get('/', getAppointmentsByDay);
 
-// --- Ruta Privada para Clientes ---
-// Reservar un turno específico por su ID
+// --- Rutas Privadas ---
+router.get('/my-appointments', protect, getMyAppointments); 
 router.put('/book/:id', protect, bookAppointment);
+router.put('/cancel/:id', protect, cancelAppointment);
 
 
 module.exports = router;

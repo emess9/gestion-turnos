@@ -65,3 +65,39 @@ export const generateAppointmentsForDay = async (date, token) => {
 
   return data;
 };
+
+// cancelar turnos 
+
+export const cancelAppointment = async (appointmentId, token) => {
+  const response = await fetch(`${API_URL}/cancel/${appointmentId}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Error al cancelar el turno.');
+  }
+
+  return data;
+};
+
+// obtener turnos de un usuario
+
+export const getMyAppointments = async (token) => {
+  const response = await fetch(`${API_URL}/my-appointments`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Error al obtener mis turnos.');
+  }
+
+  return response.json();
+};

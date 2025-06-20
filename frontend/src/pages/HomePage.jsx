@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { getAppointmentsByDate, bookAppointment } from '../services/appointmentService';
-import { getServices } from '../services/serviceService'; 
+import toast from 'react-hot-toast';
+import { getAppointmentsByDate, bookAppointment, cancelAppointment } from '../services/appointmentService';
+import { getServices } from '../services/serviceService';
 import { useAuth } from '../context/AuthContext';
 import './HomePage.css';
 
@@ -10,21 +11,20 @@ const getTodayString = () => {
 };
 
 const formatDate = (dateString) => {
-    if (!dateString) return '';
-    const [year, month, day] = dateString.split('-');
-    return `${day}/${month}/${year}`;
+  if (!dateString) return '';
+  const [year, month, day] = dateString.split('-');
+  return `${day}/${month}/${year}`;
 };
 
 const HomePage = () => {
-  const { token, isLoggedIn } = useAuth();
-
+  const { user, token, isLoggedIn } = useAuth();
   const [appointments, setAppointments] = useState([]);
-  const [services, setServices] = useState([]); // servicios
+  const [services, setServices] = useState([]);
   const [selectedDate, setSelectedDate] = useState(getTodayString());
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Función para cargar los turnos
+  // --- LÓGICA DE CARGA DE DATOS (CORREGIDA) ---
   const fetchAppointments = async (date) => {
     setLoading(true);
     setError('');
@@ -38,44 +38,91 @@ const HomePage = () => {
       setLoading(false);
     }
   };
-  
-  // 3. useEffect para cargar servicios y turnos al inicio
+
   useEffect(() => {
-    const fetchInitialData = async () => {
-        try {
-            const servicesData = await getServices();
-            setServices(servicesData);
-        } catch (error) {
-            console.error("Error al cargar servicios:", error);
-        }
+    const fetchInitialServices = async () => {
+      try {
+        const servicesData = await getServices();
+        setServices(servicesData);
+      } catch (error) {
+        console.error("Error al cargar servicios:", error);
+        toast.error("No se pudieron cargar los servicios.");
+      }
     };
-    
-    fetchInitialData();
+    fetchInitialServices();
+  }, []);
+
+  useEffect(() => {
     fetchAppointments(selectedDate);
   }, [selectedDate]);
 
-  const handleBookAppointment = async (appointmentId) => {
+  // --- LÓGICA DE RESERVA (CORREGIDA Y SIMPLIFICADA) ---
+  const handleBookAppointment = (appointmentId) => {
     if (!isLoggedIn) {
-      alert('Debes iniciar sesión para reservar un turno.');
+      toast.error('Debes iniciar sesión para reservar un turno.');
       return;
     }
 
-    const confirmBooking = window.confirm('¿Estás seguro de que quieres reservar este turno?');
-    if (!confirmBooking) {
-      return;
-    }
-
-    try {
-      await bookAppointment(appointmentId, token);
-      alert('¡Turno reservado con éxito!');
-      fetchAppointments(selectedDate);
-    } catch (err) {
-      alert(`Error al reservar el turno: ${err.message}`);
-    }
+    toast((t) => (
+      <span>
+        ¿Reservar este turno?
+        <button
+          className="toast-confirm-btn"
+          onClick={() => {
+            const promise = bookAppointment(appointmentId, token).then(() => {
+              // Si la promesa tiene éxito, actualizamos la lista
+              fetchAppointments(selectedDate);
+            });
+            // Pasamos la promesa al gestor de toasts
+            toast.promise(promise, {
+              loading: 'Reservando...',
+              success: '¡Turno reservado!',
+              error: (err) => err.message || 'No se pudo reservar.',
+            });
+            toast.dismiss(t.id); // Cerramos el toast de confirmación
+          }}
+        >
+          Sí
+        </button>
+        <button className="toast-cancel-btn" onClick={() => toast.dismiss(t.id)}>
+          No
+        </button>
+      </span>
+    ), { duration: 6000, style: { background: '#1d3557', color: 'white' } });
   };
+
+  // --- LÓGICA DE CANCELACIÓN (CORREGIDA Y SIMPLIFICADA) ---
+  const handleCancelAppointment = (appointmentId) => {
+    toast((t) => (
+      <span>
+        ¿Cancelar tu reserva?
+        <button
+          className="toast-confirm-btn"
+          onClick={() => {
+            const promise = cancelAppointment(appointmentId, token).then(() => {
+              fetchAppointments(selectedDate);
+            });
+            toast.promise(promise, {
+              loading: 'Cancelando...',
+              success: 'Reserva cancelada.',
+              error: (err) => err.message || 'No se pudo cancelar.',
+            });
+            toast.dismiss(t.id);
+          }}
+        >
+          Sí
+        </button>
+        <button className="toast-cancel-btn" onClick={() => toast.dismiss(t.id)}>
+          No
+        </button>
+      </span>
+    ), { duration: 6000, style: { background: '#1d3557', color: 'white' } });
+  };
+
 
   return (
     <div className="home-container">
+      {/* ... El resto del JSX no necesita cambios ... */}
       <div className="services-section">
         <h2>Nuestros Servicios</h2>
         {services.length > 0 ? (
@@ -84,29 +131,16 @@ const HomePage = () => {
               <li key={service._id}>{service.nombre} - <span>{service.descripcion}</span></li>
             ))}
           </ul>
-        ) : (
-          <p>Cargando servicios...</p>
-        )}
+        ) : <p>Cargando servicios...</p>}
       </div>
-
       <hr style={{width: '80%', margin: '2rem auto'}} />
-
       <h2>Reservar Turno</h2>
-      <p>Selecciona una fecha para ver los turnos disponibles.</p>
-      
       <div className="date-picker-container">
         <label htmlFor="date-picker">Elige una fecha:</label>
-        <input
-          type="date"
-          id="date-picker"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-        />
+        <input type="date" id="date-picker" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} />
       </div>
-
       {loading && <p className="loading-message">Cargando turnos...</p>}
       {error && <p className="error-message">{error}</p>}
-      
       {!loading && !error && (
         <>
             <h3>Turnos para el {formatDate(selectedDate)}</h3>
@@ -116,22 +150,18 @@ const HomePage = () => {
                     <div key={app._id} className="appointment-card">
                         <h3>{app.horaInicio}</h3>
                         <p className={app.estado === 'disponible' ? 'status-disponible' : 'status-reservado'}>
-                        {app.estado.charAt(0).toUpperCase() + app.estado.slice(1)}
+                          {app.estado === 'reservado' ? 'Reservado' : 'Disponible'}
                         </p>
-                        {app.estado === 'disponible' && isLoggedIn && (
-                        <button
-                            className="book-btn"
-                            onClick={() => handleBookAppointment(app._id)}
-                        >
-                            Reservar
-                        </button>
+                        {isLoggedIn && app.estado === 'disponible' && (
+                          <button className="book-btn" onClick={() => handleBookAppointment(app._id)}>Reservar</button>
+                        )}
+                        {isLoggedIn && app.estado === 'reservado' && user?._id === app.clienteId && (
+                          <button className="cancel-btn" onClick={() => handleCancelAppointment(app._id)}>Cancelar Reserva</button>
                         )}
                     </div>
                     ))}
                 </div>
-            ) : (
-                <p>No hay turnos generados para este día. Por favor, selecciona otra fecha.</p>
-            )}
+            ) : <p>No hay turnos generados para este día.</p>}
         </>
       )}
     </div>

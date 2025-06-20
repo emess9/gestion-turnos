@@ -27,10 +27,16 @@ const Navbar = () => {
           </li>
           
           {isLoggedIn ? (
-            // Si el usuario ESTÁ logueado
+            // --- MENÚ PARA USUARIOS LOGUEADOS ---
             <>
-              {}
-              {/* Mostrar enlace al Dashboard solo si el usuario es admin */}
+              {/* Enlace a "Mis Turnos" */}
+              <li className="nav-item">
+                <Link to="/my-appointments" className="nav-links">
+                  Mis Turnos
+                </Link>
+              </li>
+
+              {/* Enlace al Dashboard (solo para admin) */}
               {user.rol === 'admin' && (
                 <li className="nav-item">
                   <Link to="/admin/dashboard" className="nav-links">
@@ -38,8 +44,7 @@ const Navbar = () => {
                   </Link>
                 </li>
               )}
-              {}
-
+              
               <li className="nav-item">
                 <span className="nav-links nav-user">Hola, {user.nombre}</span>
               </li>
@@ -50,7 +55,7 @@ const Navbar = () => {
               </li>
             </>
           ) : (
-            // Si el usuario NO ESTÁ logueado
+            // --- MENÚ para usuarios no logueados ---
             <>
               <li className="nav-item">
                 <Link to="/login" className="nav-links">

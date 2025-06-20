@@ -59,4 +59,26 @@ export const deleteService = async (serviceId, token) => {
   return data;
 };
 
+// editar un servicio
+
+export const updateService = async (serviceId, serviceData, token) => {
+  const response = await fetch(`${API_URL}/${serviceId}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(serviceData),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Error al actualizar el servicio.');
+  }
+
+  return data;
+};
+
+
 

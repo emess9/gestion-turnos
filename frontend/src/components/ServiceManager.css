@@ -110,3 +110,74 @@
   }
 }
 
+
+.service-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-btn {
+  background-color: #0077b6; 
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.edit-btn:hover {
+  background-color: #005f8e;
+}
+
+/* editar servicio */
+.service-edit-form {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  align-items: center;
+}
+
+.service-edit-form input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #0077b6;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.save-btn, .cancel-edit-btn {
+  padding: 0.6rem 1rem;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.save-btn {
+  background-color: #2e7d32; 
+}
+.save-btn:hover {
+  background-color: #1b5e20;
+}
+
+.cancel-edit-btn {
+  background-color: #6c757d; 
+}
+.cancel-edit-btn:hover {
+  background-color: #5a6268;
+}
+
+/* formulario de edición */
+@media (max-width: 850px) {
+  .service-edit-form {
+    grid-template-columns: 1fr;
+  }
+}
