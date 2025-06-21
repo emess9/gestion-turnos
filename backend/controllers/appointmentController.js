@@ -1,29 +1,27 @@
-const Appointment = require('../models/AppointmentModel');
+import Appointment from '../models/AppointmentModel.js'; // modelo de turnos
 
-// formatear la fecha a DD/MM/YYYY Formato ARGY
+// Formatear la fecha a DD/MM/YYYY (Argentina)
 const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    // Ajustamos por la zona horaria 
-    const day = String(date.getUTCDate()).padStart(2, '0');
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-    const year = date.getUTCFullYear();
-    return `${day}/${month}/${year}`;
+  const date = new Date(dateString);
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const year = date.getUTCFullYear();
+  return `${day}/${month}/${year}`;
 };
 
-// @desc    Generar turnos para un día específico
-// @route   POST /api/appointments/generate
-// @access  Private/Admin
-const generateAppointments = async (req, res) => {
+// @desc Generar turnos para un día específico
+// @route POST /api/appointments/generate
+// @access Private/Admin
+export const generateAppointments = async (req, res) => {
   try {
     const { date } = req.body;
 
     if (!date) {
       return res.status(400).json({ message: 'Por favor, proporciona una fecha.' });
     }
-    
+
     const startTime = 9;
     const endTime = 20;
-
     const appointmentsToCreate = [];
     const targetDate = new Date(`${date}T00:00:00.000Z`);
 
@@ -31,15 +29,14 @@ const generateAppointments = async (req, res) => {
       const horaInicio = `${hour.toString().padStart(2, '0')}:00`;
       appointmentsToCreate.push({
         fecha: targetDate,
-        horaInicio: horaInicio,
+        horaInicio,
         estado: 'disponible',
       });
     }
 
     await Appointment.insertMany(appointmentsToCreate, { ordered: false });
 
-    // Mensaje de éxito mejorado
-    res.status(201).json({ 
+    res.status(201).json({
       message: `Turnos generados con éxito para el ${formatDate(date)}.`
     });
 
@@ -52,10 +49,10 @@ const generateAppointments = async (req, res) => {
   }
 };
 
-// @desc    Obtener los turnos de un día específico
-// @route   GET /api/appointments?date=YYYY-MM-DD
-// @access  Public
-const getAppointmentsByDay = async (req, res) => {
+// @desc Obtener los turnos de un día específico
+// @route GET /api/appointments?date=YYYY-MM-DD
+// @access Public
+export const getAppointmentsByDay = async (req, res) => {
   try {
     const { date } = req.query;
 
@@ -81,10 +78,10 @@ const getAppointmentsByDay = async (req, res) => {
   }
 };
 
-// @desc    Reservar un turno
-// @route   PUT /api/appointments/book/:id
-// @access  Private
-const bookAppointment = async (req, res) => {
+// @desc Reservar un turno
+// @route PUT /api/appointments/book/:id
+// @access Private
+export const bookAppointment = async (req, res) => {
   try {
     const appointment = await Appointment.findById(req.params.id);
 
@@ -109,9 +106,10 @@ const bookAppointment = async (req, res) => {
   }
 };
 
-// CANCELAR TURNOS
-
-const cancelAppointment = async (req, res) => {
+// @desc Cancelar turno
+// @route PUT /api/appointments/cancel/:id
+// @access Private o Admin
+export const cancelAppointment = async (req, res) => {
   try {
     const appointment = await Appointment.findById(req.params.id);
 
@@ -119,24 +117,15 @@ const cancelAppointment = async (req, res) => {
       return res.status(404).json({ message: 'Turno no encontrado.' });
     }
 
-    // Verificar que el turno esté reservado para poder cancelarlo
-    if (appointment.estado !== 'reservado') {
-      return res.status(400).json({ message: 'Este turno no está reservado.' });
-    }
-
-    // Verificar permisos:
-    // El usuario debe ser quien reservó el turno O debe ser un administrador.
-    // toString() es importante porque comparamos ObjectIDs.
-    const esDueñoDelTurno = appointment.clienteId.toString() === req.user._id.toString();
+    const esDueñoDelTurno = appointment.clienteId?.toString() === req.user._id.toString();
     const esAdmin = req.user.rol === 'admin';
 
     if (!esDueñoDelTurno && !esAdmin) {
       return res.status(403).json({ message: 'No tienes permiso para cancelar este turno.' });
     }
 
-    // Proceder con la cancelación:
     appointment.estado = 'disponible';
-    appointment.clienteId = undefined; // o null
+    appointment.clienteId = undefined;
 
     const updatedAppointment = await appointment.save();
 
@@ -148,12 +137,13 @@ const cancelAppointment = async (req, res) => {
   }
 };
 
-// obtener turnos de un usuario
-
-const getMyAppointments = async (req, res) => {
+// @desc Obtener turnos del usuario actual
+// @route GET /api/appointments/mis-turnos
+// @access Private
+export const getMyAppointments = async (req, res) => {
   try {
     const appointments = await Appointment.find({ clienteId: req.user._id })
-      .sort({ fecha: -1 }); // Ordenamos por fecha descendente 
+      .sort({ fecha: -1 });
 
     res.status(200).json(appointments);
 
@@ -161,13 +151,4 @@ const getMyAppointments = async (req, res) => {
     console.error('Error al obtener mis turnos:', error);
     res.status(500).json({ message: 'Error del servidor al obtener los turnos.' });
   }
-};
-
-
-module.exports = {
-  generateAppointments,
-  getAppointmentsByDay,
-  bookAppointment,
-  cancelAppointment,
-  getMyAppointments,
 };

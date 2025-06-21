@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 // 1. Importa funciones
 import { getServices, createService, deleteService, updateService } from '../services/serviceService';
 import { useAuth } from '../context/AuthContext';

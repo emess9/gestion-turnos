@@ -1,24 +1,26 @@
-const express = require('express');
-const router = express.Router();
-const {
+// backend/routes/appointmentRoutes.js
+import express from 'express';
+import {
   generateAppointments,
   getAppointmentsByDay,
   bookAppointment,
   cancelAppointment,
-  getMyAppointments, // obtener turnos de un cliente
-} = require('../controllers/appointmentController');
-const { protect, isAdmin } = require('../middlewares/authMiddleware');
+  getMyAppointments,
+} from '../controllers/appointmentController.js';
 
-// --- Rutas de Administrador ---
+import { protect, isAdmin } from '../middlewares/authMiddleware.js';
+
+const router = express.Router();
+
+// Rutas para administración
 router.post('/generate', protect, isAdmin, generateAppointments);
 
-// --- Ruta Pública ---
+// Ruta pública
 router.get('/', getAppointmentsByDay);
 
-// --- Rutas Privadas ---
-router.get('/my-appointments', protect, getMyAppointments); 
+// Rutas privadas del usuario autenticado
+router.get('/my-appointments', protect, getMyAppointments);
 router.put('/book/:id', protect, bookAppointment);
 router.put('/cancel/:id', protect, cancelAppointment);
 
-
-module.exports = router;
+export default router;

@@ -1,15 +1,13 @@
-const express = require('express');
+// backend/routes/authRoutes.js
+import express from 'express';
+import { registerUser, loginUser } from '../controllers/authController.js';
+
 const router = express.Router();
 
-// Importamos ambas funciones de authController
-const { registerUser, loginUser } = require('../controllers/authController');
-
-// Ruta para el registro de usuarios
-// POST /api/auth/register
+// Registro de usuario
 router.post('/register', registerUser);
 
-// Ruta para el login de usuarios
-// POST /api/auth/login
-router.post('/login', loginUser); 
+// Login de usuario
+router.post('/login', loginUser);
 
-module.exports = router;
+export default router;

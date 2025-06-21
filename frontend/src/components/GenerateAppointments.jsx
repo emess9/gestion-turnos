@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 // Vamos a crear una nueva función en nuestro servicio de API
 import { generateAppointmentsForDay } from '../services/appointmentService'; 

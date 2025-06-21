@@ -1,4 +1,3 @@
-    import React from 'react';
     import { Routes, Route } from 'react-router-dom';
     import { Toaster } from 'react-hot-toast'; // LIBRERIA Toaster cambia los alerts por algo mas visual
 

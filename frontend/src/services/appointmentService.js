@@ -1,12 +1,5 @@
-// La URL base de nuestra API de turnos
 const API_URL = '/api/appointments';
 
-/**
- * Obtiene los turnos para una fecha específica.
- * @param {string} date - La fecha en formato 'YYYY-MM-DD'.
- * @returns {Promise<Array>} - Una promesa que resuelve a un array de turnos.
- * @throws {Error} - Lanza un error si la petición falla.
- */
 export const getAppointmentsByDate = async (date) => {
   const response = await fetch(`${API_URL}?date=${date}`);
   
@@ -18,13 +11,7 @@ export const getAppointmentsByDate = async (date) => {
   return response.json();
 };
 
-/**
- * Reserva un turno para el usuario autenticado.
- * @param {string} appointmentId - El ID del turno a reservar.
- * @param {string} token - El token JWT del usuario.
- * @returns {Promise<object>} - Una promesa que resuelve al objeto del turno actualizado.
- * @throws {Error} - Lanza un error si la petición falla.
- */
+
 export const bookAppointment = async (appointmentId, token) => {
   const response = await fetch(`${API_URL}/book/${appointmentId}`, {
     method: 'PUT',
@@ -42,8 +29,6 @@ export const bookAppointment = async (appointmentId, token) => {
   }
 
   return data;
-
-
   
 };
 

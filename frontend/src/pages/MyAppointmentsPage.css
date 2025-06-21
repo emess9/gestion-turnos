@@ -58,3 +58,20 @@
 .error-message {
     color: #c62828;
 }
+
+.cancel-button {
+  grid-column: span 1; /* ocupa todo el ancho en la fila siguiente */
+  background-color: #e63946;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.cancel-button:hover {
+  background-color: #d62828;
+}

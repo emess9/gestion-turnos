@@ -1,22 +1,22 @@
-const express = require('express');
-const router = express.Router();
-const {
+// backend/routes/serviceRoutes.js
+import express from 'express';
+import {
   createService,
   getServices,
   updateService,
   deleteService,
-} = require('../controllers/serviceController');
-const { protect, isAdmin } = require('../middlewares/authMiddleware');
+} from '../controllers/serviceController.js';
 
-// --- Rutas Públicas ---
-// Obtener todos los servicios. Cualquiera puede ver qué servicios se ofrecen.
+import { protect, isAdmin } from '../middlewares/authMiddleware.js';
+
+const router = express.Router();
+
+// Rutas públicas
 router.get('/', getServices);
 
-// --- Rutas de Administrador ---
-// Para crear, actualizar y eliminar servicios, se necesita ser un administrador.
-// Usamos protect para asegurar que el usuario esté logueado y isAdmin para verificar su rol.
+// Rutas protegidas para admin
 router.post('/', protect, isAdmin, createService);
 router.put('/:id', protect, isAdmin, updateService);
 router.delete('/:id', protect, isAdmin, deleteService);
 
-module.exports = router;
+export default router;

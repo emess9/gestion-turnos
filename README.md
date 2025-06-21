@@ -19,7 +19,8 @@ Generación de Turnos: Un administrador puede generar todos los slots de turnos 
 
 Gestión de Servicios: Se ha implementado un CRUD completo en la API para que un administrador pueda crear, leer, actualizar y eliminar los servicios que ofrece la peluquería.
 
-🛠️ Tecnologías Utilizadas
+Tecnologías Utilizadas
+
 Backend
 Node.js: Entorno de ejecución para JavaScript del lado del servidor.
 
@@ -95,7 +96,8 @@ npm run dev
 
 La aplicación de React estará disponible en http://localhost:5173 (o el puerto que indique Vite).
 
-📂 Estructura del Proyecto
+Estructura del Proyecto
+
 El proyecto sigue una estructura monorepo, separando claramente el backend del frontend.
 
 /

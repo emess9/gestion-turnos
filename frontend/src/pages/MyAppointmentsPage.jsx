@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { getMyAppointments } from '../services/appointmentService';
-import './MyAppointmentsPage.css'; 
+import { getMyAppointments, cancelAppointment } from '../services/appointmentService';
+import './MyAppointmentsPage.css';
 
 const formatDate = (dateString) => {
   if (!dateString) return '';
@@ -36,6 +36,16 @@ const MyAppointmentsPage = () => {
     }
   }, [token]);
 
+  const handleCancel = async (appointmentId) => {
+    try {
+      await cancelAppointment(appointmentId, token);
+      // Actualiza la lista eliminando el turno cancelado
+      setAppointments((prev) => prev.filter((a) => a._id !== appointmentId));
+    } catch (err) {
+      alert('Error al cancelar el turno.');
+    }
+  };
+
   if (loading) {
     return <div className="appointments-container"><p>Cargando tus turnos...</p></div>;
   }
@@ -54,6 +64,15 @@ const MyAppointmentsPage = () => {
               <div className="appointment-date">{formatDate(app.fecha)}</div>
               <div className="appointment-time">{app.horaInicio}</div>
               <div className="appointment-status">{app.estado}</div>
+
+              {app.estado === 'reservado' && (
+                <button
+                  className="cancel-button"
+                  onClick={() => handleCancel(app._id)}
+                >
+                  Cancelar Turno
+                </button>
+              )}
             </li>
           ))}
         </ul>
