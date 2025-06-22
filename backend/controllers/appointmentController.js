@@ -1,6 +1,6 @@
-import Appointment from '../models/AppointmentModel.js'; // modelo de turnos
+import Appointment from '../models/AppointmentModel.js'; 
 
-// Formatear la fecha a DD/MM/YYYY (Argentina)
+// Formatear la fecha Argentina
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const day = String(date.getUTCDate()).padStart(2, '0');
@@ -11,7 +11,7 @@ const formatDate = (dateString) => {
 
 // @desc Generar turnos para un día específico
 // @route POST /api/appointments/generate
-// @access Private/Admin
+// acceso Private/Admin
 export const generateAppointments = async (req, res) => {
   try {
     const { date } = req.body;
@@ -20,10 +20,17 @@ export const generateAppointments = async (req, res) => {
       return res.status(400).json({ message: 'Por favor, proporciona una fecha.' });
     }
 
+    const targetDate = new Date(`${date}T00:00:00.000Z`);
+
+    const existingAppointment = await Appointment.findOne({ fecha: targetDate });
+
+    if (existingAppointment) {
+      return res.status(409).json({ message: `Los turnos para el ${formatDate(date)} ya han sido generados.` });
+    }
+
     const startTime = 9;
     const endTime = 20;
     const appointmentsToCreate = [];
-    const targetDate = new Date(`${date}T00:00:00.000Z`);
 
     for (let hour = startTime; hour < endTime; hour++) {
       const horaInicio = `${hour.toString().padStart(2, '0')}:00`;
@@ -34,16 +41,13 @@ export const generateAppointments = async (req, res) => {
       });
     }
 
-    await Appointment.insertMany(appointmentsToCreate, { ordered: false });
+    await Appointment.insertMany(appointmentsToCreate);
 
     res.status(201).json({
       message: `Turnos generados con éxito para el ${formatDate(date)}.`
     });
 
   } catch (error) {
-    if (error.code === 11000) {
-      return res.status(409).json({ message: `Los turnos para el ${formatDate(date)} ya existen.` });
-    }
     console.error('Error al generar los turnos:', error);
     res.status(500).json({ message: 'Error del servidor al generar los turnos.' });
   }
@@ -108,7 +112,7 @@ export const bookAppointment = async (req, res) => {
 
 // @desc Cancelar turno
 // @route PUT /api/appointments/cancel/:id
-// @access Private o Admin
+// acceso Private o Admin
 export const cancelAppointment = async (req, res) => {
   try {
     const appointment = await Appointment.findById(req.params.id);
@@ -139,7 +143,7 @@ export const cancelAppointment = async (req, res) => {
 
 // @desc Obtener turnos del usuario actual
 // @route GET /api/appointments/mis-turnos
-// @access Private
+// Private
 export const getMyAppointments = async (req, res) => {
   try {
     const appointments = await Appointment.find({ clienteId: req.user._id })
