@@ -24,13 +24,13 @@ const RegisterPage = () => {
     setError(null);
 
     try {
-      // 1. Llamamos a la función de nuestro servicio de API con los datos del nuevo usuario
+      // Llamamos a la función de nuestro servicio de API con los datos del nuevo usuario
       const userData = await registerUser({ nombre, email, password });
       
-      // 2. Si el registro tiene éxito, iniciamos sesión con los datos recibidos
+      // Si el registro tiene éxito, iniciamos sesión con los datos recibidos
       login(userData);
       
-      // 3. Redirigimos al usuario a la página de inicio
+      // Redirigimos al usuario a la página de inicio
       navigate('/');
 
     } catch (err) {

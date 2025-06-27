@@ -1,5 +1,6 @@
 const API_URL = '/api/appointments';
 
+//  Obtiene los turnos para una fecha concreta
 export const getAppointmentsByDate = async (date) => {
   const response = await fetch(`${API_URL}?date=${date}`);
   
@@ -11,7 +12,7 @@ export const getAppointmentsByDate = async (date) => {
   return response.json();
 };
 
-
+// Permite a un usuario reservar un turno disponible.
 export const bookAppointment = async (appointmentId, token) => {
   const response = await fetch(`${API_URL}/book/${appointmentId}`, {
     method: 'PUT',
@@ -32,6 +33,7 @@ export const bookAppointment = async (appointmentId, token) => {
   
 };
 
+// Crea slots de turnos para un día específico 
 export const generateAppointmentsForDay = async (date, token) => {
   const response = await fetch(`${API_URL}/generate`, {
     method: 'POST',

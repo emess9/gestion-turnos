@@ -1,5 +1,6 @@
 import Service from '../models/ServiceModel.js'; 
 
+// Crea un nuevo servicio
 export const createService = async (req, res) => {
   try {
     const { nombre, descripcion, duracion } = req.body;
@@ -22,7 +23,7 @@ export const createService = async (req, res) => {
   }
 };
 
-
+// Obtiene la lista de todos los servicios 
 export const getServices = async (req, res) => {
   try {
     const services = await Service.find({});
@@ -33,7 +34,7 @@ export const getServices = async (req, res) => {
   }
 };
 
-
+// Actualiza un servicio existente 
 export const updateService = async (req, res) => {
   try {
     const service = await Service.findById(req.params.id);
@@ -54,7 +55,7 @@ export const updateService = async (req, res) => {
   }
 };
 
-
+// Elimina un servicio 
 export const deleteService = async (req, res) => {
   try {
     const service = await Service.findById(req.params.id);

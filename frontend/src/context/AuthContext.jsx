@@ -1,9 +1,7 @@
-import React, { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext } from 'react';
 
-// 1. Creamos el Contexto
 const AuthContext = createContext(null);
 
-// 2. Creamos el Proveedor del Contexto (AuthProvider)
 // Este componente envolverá nuestra aplicación y proveerá el estado.
 export const AuthProvider = ({ children }) => {
   // Estado para guardar la información del usuario (incluyendo el token)

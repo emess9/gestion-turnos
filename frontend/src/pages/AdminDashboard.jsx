@@ -1,6 +1,6 @@
-import React from 'react';
+
 import GenerateAppointments from '../components/GenerateAppointments'; // Componente para generar turnos
-import ServiceManager from '../components/ServiceManager'; 
+import ServiceManager from '../components/ServiceManager'; // componente para gestionar los servicios
 
 const AdminDashboard = () => {
   return (
@@ -10,12 +10,10 @@ const AdminDashboard = () => {
       
       <hr style={{ margin: '2rem 0' }} />
 
-      {/* Componente para generar los turnos disponibles */}
       <GenerateAppointments />
 
       <hr style={{ margin: '2rem 0' }} />
 
-      {/* 2. Añadir el componente para gestionar los servicios */}
       <ServiceManager />
 
     </div>

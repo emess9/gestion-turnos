@@ -1,6 +1,7 @@
 // backend/models/UserModel.js
 import mongoose from 'mongoose';
 
+// Define el esquema de usuario
 const userSchema = new mongoose.Schema(
   {
     nombre: {
@@ -31,7 +32,7 @@ const userSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // Crea automáticamente campos createdAt y updatedAt
+    timestamps: true,
   }
 );
 

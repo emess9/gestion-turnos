@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { loginUser } from '../services/authService';
@@ -23,13 +23,13 @@ const LoginPage = () => {
     setError(null);     // Limpiamos errores previos
 
     try {
-      // 1. Llamamos a la función de nuestro servicio de API
+      // Llamamos a la función de nuestro servicio de API
       const userData = await loginUser(email, password);
       
-      // 2. Si tiene éxito, llamamos a la función login de nuestro AuthContext
+      // Si tiene éxito, llamamos a la función login de nuestro AuthContext
       login(userData);
       
-      // 3. Redirigimos al usuario a la página de inicio
+      // Redirigimos al usuario a la página de inicio
       navigate('/');
 
     } catch (err) {
@@ -37,7 +37,7 @@ const LoginPage = () => {
       console.error(err);
       setError(err.message || 'Ocurrió un error inesperado.');
     } finally {
-      // 4. Terminamos la carga, tanto si hubo éxito como si hubo error
+      // Terminamos la carga, tanto si hubo éxito como si hubo error
       setLoading(false);
     }
   };

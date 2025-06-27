@@ -1,10 +1,5 @@
-// La URL de API de servicios
 const API_URL = '/api/services';
 
-/**
- * Obtiene todos los servicios. Es una ruta pública.
- * @returns {Promise<Array>} 
- */
 export const getServices = async () => {
   const response = await fetch(API_URL);
 
@@ -16,12 +11,7 @@ export const getServices = async () => {
   return response.json();
 };
 
-/**
- * Crea un nuevo servicio
- * @param {object} serviceData - Objeto con nombre, descripción y duración.
- * @param {string} token - JWT del administrador.
- * @returns {Promise<object>} 
- */
+
 export const createService = async (serviceData, token) => {
   const response = await fetch(API_URL, {
     method: 'POST',

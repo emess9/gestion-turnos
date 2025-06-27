@@ -1,14 +1,14 @@
-// backend/models/AppointmentModel.js
 import mongoose from 'mongoose';
 
+// Define el esquema para los turnos
 const appointmentSchema = new mongoose.Schema(
   {
-    // Fecha completa del turno (permite filtrar fácilmente por rango)
+    // Fecha completa del turno
     fecha: {
       type: Date,
       required: [true, 'La fecha del turno es obligatoria.'],
     },
-    // Hora como texto legible (por ejemplo: "09:00")
+    // Hora como texto legible
     horaInicio: {
       type: String,
       required: [true, 'La hora de inicio del turno es obligatoria.'],
@@ -19,7 +19,7 @@ const appointmentSchema = new mongoose.Schema(
       enum: ['disponible', 'reservado'],
       default: 'disponible',
     },
-    // Usuario que reservó el turno (puede estar vacío si está disponible)
+    // Usuario que reservó el turno 
     clienteId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',

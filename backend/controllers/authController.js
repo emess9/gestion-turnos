@@ -2,7 +2,7 @@ import User from '../models/UserModel.js';
 import bcrypt from 'bcryptjs'; 
 import jwt from 'jsonwebtoken'; 
 
-
+// Crea un nuevo usuario y genera un JWT.
 export const registerUser = async (req, res) => {
   try {
     const { nombre, email, password, rol } = req.body;
@@ -55,6 +55,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
+// Autentica a un usuario verificando su contraseña y genera un JWT si las credenciales son correctas
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;

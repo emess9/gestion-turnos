@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { getAppointmentsByDate, bookAppointment, cancelAppointment } from '../services/appointmentService';
 import { getServices } from '../services/serviceService';
@@ -122,7 +122,6 @@ const HomePage = () => {
 
   return (
     <div className="home-container">
-      {/* ... El resto del JSX no necesita cambios ... */}
       <div className="services-section">
         <h2>Nuestros Servicios</h2>
         {services.length > 0 ? (

@@ -1,6 +1,6 @@
-// backend/models/ServiceModel.js
 import mongoose from 'mongoose';
 
+// Define el esquema para los servicios con nombre, descripcion y duracion
 const serviceSchema = new mongoose.Schema(
   {
     nombre: {
@@ -18,11 +18,9 @@ const serviceSchema = new mongoose.Schema(
       required: [true, 'La duración del servicio es obligatoria (en minutos).'],
       default: 60,
     },
-    // Si en algún momento se quiere agregar precio:
-    // precio: { type: Number }
   },
   {
-    timestamps: true, // Agrega createdAt y updatedAt automáticamente
+    timestamps: true, 
   }
 );
 

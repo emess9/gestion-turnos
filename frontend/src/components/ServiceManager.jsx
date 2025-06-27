@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-// 1. Importa funciones
 import { getServices, createService, deleteService, updateService } from '../services/serviceService';
 import { useAuth } from '../context/AuthContext';
 import './ServiceManager.css';
