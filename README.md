@@ -53,12 +53,59 @@ CSS3: Para los estilos de la aplicación.
 🚀 Puesta en Marcha del Proyecto
 Instrucciones resumidas para correr el proyecto en un entorno local.
 
+Roles de Usuario: El sistema diferencia entre roles de cliente y administrador, cada uno con distintos niveles de permisos.
+
+Funcionalidades para Clientes
+Visualización de Turnos: Permite seleccionar una fecha y ver una grilla con todos los turnos del día, mostrando su hora y estado ('disponible' o 'reservado').
+
+Reserva de Turnos: Los usuarios que han iniciado sesión pueden reservar cualquier turno que se encuentre disponible.
+
+Historial de Turnos: Una página dedicada para que los clientes puedan ver un listado de todos sus turnos reservados.
+
+Funcionalidades para Administradores
+Dashboard Protegido: Un panel de control accesible únicamente para usuarios con rol de administrador.
+
+Generación de Turnos: Un administrador puede generar todos los slots de turnos para un día específico desde la interfaz.
+
+Gestión de Servicios: Se ha implementado un CRUD completo (Crear, Ver, Editar y Eliminar) para que un administrador pueda gestionar los servicios que ofrece la peluquería.
+
+🛠️ Tecnologías Utilizadas
+Backend
+Node.js: Entorno de ejecución para JavaScript del lado del servidor.
+
+Express.js: Framework para construir la API REST.
+
+MongoDB (Atlas): Base de datos NoSQL en la nube.
+
+Mongoose: ODM para modelar y facilitar la interacción con MongoDB.
+
+JSON Web Token (jsonwebtoken): Para la generación y verificación de tokens de acceso.
+
+bcryptjs: Para encriptar de forma segura las contraseñas.
+
+Frontend
+React.js: Librería para construir la interfaz de usuario.
+
+Vite: Herramienta de desarrollo y empaquetado.
+
+React Router DOM: Para gestionar el enrutamiento y la navegación.
+
+React Context API: Para el manejo del estado global de la autenticación.
+
+react-hot-toast: Para mostrar notificaciones modernas y no intrusivas.
+
+CSS3: Para los estilos de la aplicación.
+
+🚀 Puesta en Marcha del Proyecto
+Instrucciones resumidas para correr el proyecto en un entorno local.
+
 Clonar el repositorio.
 
 Backend:
 
 Navegar a la carpeta /backend.
 
+Crear un archivo .env con las variables MONGODB_URI y JWT_SECRET.
 Crear un archivo .env con las variables MONGODB_URI y JWT_SECRET.
 
 Correr npm install.
