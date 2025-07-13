@@ -1,4 +1,4 @@
-Proyecto: Gestión de Turnos para Peluquería (Stack MERN)
+#Proyecto: Gestión de Turnos para Peluquería (Stack MERN)#
 Este proyecto es una aplicación web Full-Stack construida con el stack MERN (MongoDB, Express, React, Node.js). El objetivo fue desarrollar un sistema completo para la gestión de turnos, con funcionalidades diferenciadas para clientes y administradores.
 
 Funcionalidades Principales
