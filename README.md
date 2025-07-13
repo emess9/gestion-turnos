@@ -1,119 +1,64 @@
-Gestión de Turnos - Peluquería (Proyecto MERN)
-Este es un proyecto Full-Stack desarrollado con el stack MERN (MongoDB, Express, React, Node.js) que simula un sistema de gestión de turnos para una peluquería. La aplicación permite a los clientes ver y reservar turnos disponibles, mientras que los administradores tienen la capacidad de gestionar los servicios y generar los horarios de atención.
+Proyecto: Gestión de Turnos para Peluquería (Stack MERN)
+Desarrollado por Ezequiel Messina y Alexander Achacollo
+Este proyecto es una aplicación web Full-Stack construida con el stack MERN (MongoDB, Express, React, Node.js). El objetivo fue desarrollar un sistema completo para la gestión de turnos, con funcionalidades diferenciadas para clientes y administradores.
 
- Características Principales
-Autenticación y Usuarios
-Registro e Inicio de Sesión: Los usuarios pueden crear una cuenta y acceder al sistema.
+Funcionalidades Principales
+Sistema de Autenticación: Registro e inicio de sesión de usuarios con tokens JWT para la seguridad de la API.
 
-Autenticación con JWT: La seguridad de la API se gestiona mediante JSON Web Tokens, asegurando que solo usuarios autenticados puedan realizar ciertas acciones.
+Roles de Usuario: Clara diferenciación entre clientes y administradores, cada uno con sus permisos específicos.
 
-Roles de Usuario: El sistema diferencia entre roles de cliente y administrador, cada uno con distintos niveles de permisos.
+Interfaz de Cliente: Los clientes pueden ver los servicios, consultar los turnos disponibles por día y reservar el que deseen. También cuentan con una página para ver su historial de turnos.
 
-Funcionalidades para Clientes
-Visualización de Turnos: Permite seleccionar una fecha y ver una grilla con todos los turnos del día, mostrando su hora y estado ('disponible' o 'reservado').
-
-Reserva de Turnos: Los usuarios que han iniciado sesión pueden reservar cualquier turno que se encuentre disponible.
-
-Funcionalidades para Administradores (vía API)
-Generación de Turnos: Un administrador puede generar todos los slots de turnos para un día específico.
-
-Gestión de Servicios: Se ha implementado un CRUD completo en la API para que un administrador pueda crear, leer, actualizar y eliminar los servicios que ofrece la peluquería.
+Panel de Administrador: Una sección protegida donde el administrador puede generar los horarios de atención, y gestionar los servicios ofrecidos (crear, ver, editar y eliminar).
 
 Tecnologías Utilizadas
+Backend: Node.js, Express, MongoDB (con Mongoose), JWT, bcryptjs.
 
-Backend
-Node.js: Entorno de ejecución para JavaScript del lado del servidor.
+Frontend: React (con Vite), React Router, Context API para el estado, y CSS puro para los estilos.
 
-Express.js: Framework para construir la API REST.
+Cambios Realizados para el Trabajo Final - Por Ezequiel Messina
+Para esta entrega final, me enfoqué en pulir la aplicación, mejorar la experiencia de usuario y fortalecer la lógica y seguridad del sistema.
 
-MongoDB (Atlas): Base de datos NoSQL en la nube para almacenar toda la información.
+1. Mejoras Visuales y de UI/UX
+Rediseño de la Identidad Visual: Se implementó una nueva paleta de colores profesional y se adoptó la tipografía "Poppins" de Google Fonts para darle un aspecto más moderno y elegante a toda la aplicación.
 
-Mongoose: ODM (Object Data Modeling) para modelar y facilitar la interacción con MongoDB.
+Componentes Rediseñados: Se refactorizó el CSS de componentes clave como la Navbar, los formularios de autenticación, las tarjetas de turnos y el dashboard del administrador para que sigan la nueva línea visual.
 
-JSON Web Token (jsonwebtoken): Para la generación y verificación de tokens de acceso.
+Experiencia de Usuario Mejorada: Se eliminaron todos los alert() y confirm() nativos del navegador, reemplazándolos por un sistema de notificaciones "toast" no intrusivas (react-hot-toast), mejorando significativamente la fluidez de la interacción.
 
-bcryptjs: Para encriptar de forma segura las contraseñas de los usuarios.
+2. Mejoras de Lógica y Corrección de Bugs
+Prevención de Turnos Duplicados: Se mejoró la lógica en el backend para que, antes de generar los turnos de un día, el sistema verifique proactivamente si ya existen, devolviendo un mensaje de error claro al administrador en lugar de un fallo del servidor.
 
-Frontend
-React.js: Librería para construir la interfaz de usuario.
+Corrección de Fechas (Timezone Bug): Se solucionó un bug crítico en el frontend donde la visualización de la fecha de los turnos mostraba el día anterior debido a un mal manejo de las zonas horarias.
 
-Vite: Herramienta de desarrollo y empaquetado ultra rápida.
+3. Validaciones Clave Implementadas
+Para asegurar la integridad y seguridad de los datos, se implementaron varias validaciones fundamentales:
 
-React Router DOM: Para gestionar el enrutamiento y la navegación entre páginas.
+Unicidad de Email (Backend): Se garantiza que no puedan existir dos usuarios registrados con el mismo correo electrónico, tanto a nivel de base de datos (unique index) como con una verificación previa en la lógica del controlador.
 
-React Context API: Para el manejo del estado global de la autenticación.
+Autorización por Roles (Backend y Frontend): Se implementó un sistema robusto con middlewares (isAdmin) y rutas protegidas (AdminRoute) para asegurar que solo los usuarios con rol de administrador puedan acceder a las funciones y vistas de gestión.
 
-CSS3: Para los estilos de la aplicación.
+Confirmación de Contraseña (Frontend): Se añadió un campo "Confirmar Contraseña" en el formulario de registro con una validación en tiempo real para evitar errores de tipeo por parte del usuario al crear su cuenta.
 
- Puesta en Marcha del Proyecto
-Sigue estos pasos para clonar y correr el proyecto en tu entorno local.
+Instalación Rápida
+Clonar el repositorio.
 
-Prerrequisitos
-Tener instalado Node.js (que incluye npm).
+Backend:
 
-Tener una cuenta de MongoDB Atlas para crear un clúster gratuito.
+Navegar a la carpeta /backend.
 
-Instalación
-Clonar el repositorio:
+Crear un archivo .env (basado en el .env.example si existiera, o con las variables MONGODB_URI y JWT_SECRET).
 
-git clone [TU_URL_DEL_REPOSITORIO_AQUI]
-cd gestion-turnos-app # O el nombre de tu carpeta
+Correr npm install.
 
-Configurar el Backend:
+Frontend:
 
-Navega a la carpeta del backend:
+Navegar a la carpeta /frontend.
 
-cd backend
+Correr npm install.
 
-Instala las dependencias:
+Ejecutar:
 
-npm install
+Correr npm run dev en una terminal para el backend.
 
-Configurar el Frontend:
-
-Desde la raíz del proyecto, navega a la carpeta del frontend:
-
-cd ../frontend
-
-Instala las dependencias:
-
-npm install
-
-Ejecutar la Aplicación
-Necesitarás dos terminales abiertas para correr ambos servidores simultáneamente.
-
-Terminal 1 - Iniciar el Backend:
-
-# Desde la carpeta /backend
-npm run dev
-
-El servidor de la API estará corriendo en http://localhost:3001.
-
-Terminal 2 - Iniciar el Frontend:
-
-# Desde la carpeta /frontend
-npm run dev
-
-La aplicación de React estará disponible en http://localhost:5173 (o el puerto que indique Vite).
-
-Estructura del Proyecto
-
-El proyecto sigue una estructura monorepo, separando claramente el backend del frontend.
-
-/
-├── backend/
-│   ├── controllers/  # Lógica de negocio
-│   ├── middlewares/  # Funciones intermedias (auth)
-│   ├── models/       # Esquemas de Mongoose
-│   ├── routes/       # Definición de rutas de la API
-│   ├── .env          # (local) Variables de entorno
-│   └── server.js     # Punto de entrada del servidor
-│
-└── frontend/
-    └── src/
-        ├── components/   # Componentes reutilizables (Navbar)
-        ├── context/      # Estado global (AuthContext)
-        ├── pages/        # Componentes de página (Home, Login)
-        ├── services/     # Lógica de llamadas a la API
-        ├── App.jsx       # Componente principal y enrutador
-        └── main.jsx      # Punto de entrada de la app React
+Correr npm run dev en otra terminal para el frontend.

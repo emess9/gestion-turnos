@@ -1,65 +1,53 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: #f0f2f5;
-  color: #333;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
+
+:root {
+  --font-principal: 'Poppins', sans-serif;
+  --color-primario: #2d3436;      
+  --color-secundario: #fdfdfd;   
+  --color-acento: #c89f68;         
+  --color-acento-hover: #b8915f;  
+  --color-texto: #2d3436;
+  --color-texto-claro: #636e72;
+  --color-exito: #2e7d32;
+  --color-error: #c62828;
+  --sombra-suave: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+* {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-#root {
-  background-color: #fafafa;
-  padding: 30px 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 700px;
-  text-align: center;
-}
-
-h1 {
-  color: #1d3557;
-  margin-top: 0;
-  margin-bottom: 24px;
-}
-
-p {
-  color: #455a64;
+body {
+  font-family: var(--font-principal);
+  background-color: var(--color-secundario);
+  color: var(--color-texto);
   line-height: 1.6;
-  margin-bottom: 16px;
 }
 
-/* para el navbar */
-
-.main-content {
-  padding-top: 100px; 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  color: var(--color-primario);
 }
 
+/* --- Estilos para los Toasts de Notificación --- */
+.toast-success {
+  background-color: var(--color-exito);
+  color: white;
+  font-weight: bold;
+}
 
-    /* ESTILOS LIBRERIA TOAST*/
-    .toast-success {
-      background-color: #2e7d32; 
-      color: white;
-      font-weight: bold;
-    }
+.toast-error {
+  background-color: var(--color-error);
+  color: white;
+  font-weight: bold;
+}
 
-    /* notificaciones de error */
-    .toast-error {
-      background-color: #c62828; 
-      color: white;
-      font-weight: bold;
-    }
-
-    .toast-confirm-btn, .toast-cancel-btn {
+.toast-confirm-btn, .toast-cancel-btn {
   margin-left: 10px;
   padding: 5px 10px;
   border-radius: 5px;
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.5);
   background: transparent;
   color: white;
   cursor: pointer;
@@ -67,9 +55,13 @@ p {
 }
 
 .toast-confirm-btn {
-  border-color: #81c784; 
+  border-color: #81c784;
 }
 
 .toast-cancel-btn {
-  border-color: #e57373; 
+  border-color: #e57373;
+}
+
+.main-content {
+  padding-top: 100px; 
 }

@@ -1,63 +1,97 @@
-.form-container {
+.form-page-container {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; 
+  padding: 4rem 2rem; 
+}
+
+.form-container {
   width: 100%;
-  max-width: 400px; /* Ancho máximo para el formulario */
-  margin: 1rem auto; /* Centrar y dar espacio superior */
+  max-width: 450px;
+  padding: 2.5rem;
+  background-color: #ffffff;
+  box-shadow: var(--sombra-suave);
+  text-align: center;
+}
+
+.form-container h2 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: var(--color-primario);
 }
 
 .form-group {
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 1.5rem;
+  text-align: left;
 }
 
 .form-group label {
+  display: block;
   margin-bottom: 0.5rem;
-  text-align: left;
-  font-weight: bold;
-  color: #4f4f4f;
+  font-weight: 500;
+  color: var(--color-texto-claro);
 }
 
 .form-group input {
-  padding: 0.8rem;
+  width: 100%;
+  padding: 0.8rem 1rem;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #dfe6e9;
   font-size: 1rem;
+  font-family: var(--font-principal);
+  transition: all 0.3s ease;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #1d3557;
-  box-shadow: 0 0 5px rgba(29, 53, 87, 0.5);
+  border-color: var(--color-acento);
+  box-shadow: 0 0 0 3px rgba(200, 159, 104, 0.2); 
 }
 
 .form-button {
+  width: 100%;
   padding: 1rem;
   border: none;
   border-radius: 5px;
-  background-color: #fca311; /* Color de acento de la navbar */
-  color: #1d3557;
+  background-color: var(--color-acento);
+  color: var(--color-primario);
   font-size: 1.1rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .form-button:hover {
-  background-color: #e89505;
+  background-color: var(--color-acento-hover);
 }
 
 .form-button:disabled {
-  background-color: #ccc;
+  background-color: #b2bec3;
   cursor: not-allowed;
 }
 
 .form-error {
-  color: #d32f2f; /* Rojo para errores */
-  background-color: #ffcdd2;
+  color: var(--color-error);
+  background-color: rgba(198, 40, 40, 0.1);
   padding: 0.8rem;
   border-radius: 5px;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   text-align: center;
+  font-weight: 500;
+}
+
+.form-switch-link {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: var(--color-texto-claro);
+}
+
+.form-switch-link a {
+  color: var(--color-acento);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.form-switch-link a:hover {
+  text-decoration: underline;
 }

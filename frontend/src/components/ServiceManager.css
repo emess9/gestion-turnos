@@ -1,18 +1,18 @@
 .service-manager-container {
   background-color: #ffffff;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  box-shadow: var(--sombra-suave);
   margin-top: 2rem;
 }
 
 .service-manager-container h3 {
   margin-top: 0;
   text-align: center;
-  color: #1d3557;
+  color: var(--color-primario);
   font-size: 1.5rem;
-  border-bottom: 2px solid #f0f2f5;
-  padding-bottom: 1rem;
+  border-bottom: 1px solid #dfe6e9;
+  padding-bottom: 1.5rem;
   margin-bottom: 2rem;
 }
 
@@ -21,45 +21,47 @@
 }
 
 .form-section h4, .list-section h4 {
-  color: #4f4f4f;
+  color: var(--color-texto-claro);
   margin-bottom: 1rem;
+  font-weight: 500;
 }
 
 .service-form {
   display: grid;
-  grid-template-columns: 2fr 3fr 1fr auto; 
+  grid-template-columns: 2fr 3fr 1fr auto;
   gap: 1rem;
   align-items: center;
 }
 
 .service-form input {
-  padding: 0.7rem;
+  padding: 0.8rem;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #dfe6e9;
   font-size: 0.9rem;
-  width: 100%; 
-  box-sizing: border-box; 
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-principal);
 }
 
 .service-form button {
-  padding: 0.7rem 1rem;
+  padding: 0.8rem 1rem;
   border: none;
   border-radius: 5px;
-  background-color: #1d3557;
+  background-color: var(--color-primario);
   color: white;
   font-size: 0.9rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  white-space: nowrap; 
+  white-space: nowrap;
 }
 
 .service-form button:hover {
-  background-color: #457b9d;
+  background-color: #4a5457;
 }
 
 .service-form button:disabled {
-  background-color: #ccc;
+  background-color: #b2bec3;
 }
 
 .service-list {
@@ -71,69 +73,61 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f9f9f9;
+  background-color: var(--color-secundario);
   padding: 1rem;
   border-radius: 5px;
   margin-bottom: 0.5rem;
-  border-left: 5px solid #fca311;
+  border: 1px solid #f0f0f0;
 }
 
 .service-info {
-  flex-grow: 1; 
+  flex-grow: 1;
 }
 
-.delete-btn {
-  background-color: #e63946; 
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  margin-left: 1rem; 
-  transition: background-color 0.2s ease;
+.service-item strong {
+  font-size: 1.1rem;
+  color: var(--color-primario);
+  font-weight: 600;
 }
 
-.delete-btn:hover {
-  background-color: #d00000;
+.service-item p {
+  margin: 0.3rem 0 0;
+  color: var(--color-texto-claro);
 }
-
-/* --- responsive --- */
-@media (max-width: 850px) {
-  .service-form {
-    /*  una sola columna */
-    grid-template-columns: 1fr; 
-  }
-
-  .service-form button {
-    width: 100%;
-  }
-}
-
 
 .service-actions {
   display: flex;
   gap: 0.5rem;
 }
 
-.edit-btn {
-  background-color: #0077b6; 
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s ease;
+.edit-btn, .delete-btn {
+    padding: 0.6rem 1.2rem;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
 }
 
+.edit-btn {
+  background-color: #0077b6;
+}
 .edit-btn:hover {
   background-color: #005f8e;
 }
 
-/* editar servicio */
+.delete-btn {
+  background-color: #e74c3c;
+}
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
 .service-edit-form {
   display: grid;
-  grid-template-columns: 2fr 3fr 1fr 1fr;
+  grid-template-columns: 2fr 3fr 1fr auto;
   gap: 1rem;
   width: 100%;
   align-items: center;
@@ -141,8 +135,8 @@
 
 .service-edit-form input {
   width: 100%;
-  padding: 0.6rem;
-  border: 1px solid #0077b6;
+  padding: 0.7rem;
+  border: 1px solid var(--color-acento);
   border-radius: 5px;
   box-sizing: border-box;
 }
@@ -153,31 +147,35 @@
 }
 
 .save-btn, .cancel-edit-btn {
-  padding: 0.6rem 1rem;
+  padding: 0.7rem 1rem;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
 .save-btn {
-  background-color: #2e7d32; 
+  background-color: var(--color-exito);
 }
 .save-btn:hover {
   background-color: #1b5e20;
 }
 
 .cancel-edit-btn {
-  background-color: #6c757d; 
+  background-color: var(--color-texto-claro);
 }
 .cancel-edit-btn:hover {
   background-color: #5a6268;
 }
 
-/* formulario de edición */
 @media (max-width: 850px) {
-  .service-edit-form {
+  .service-form, .service-edit-form {
     grid-template-columns: 1fr;
+  }
+
+  .service-form button {
+    width: 100%;
   }
 }

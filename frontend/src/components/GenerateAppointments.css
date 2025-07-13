@@ -1,15 +1,17 @@
 .generate-container {
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  box-shadow: var(--sombra-suave);
   margin-top: 2rem;
 }
 
 .generate-container h3 {
   margin-top: 0;
   text-align: center;
-  color: #1d3557;
+  color: var(--color-primario);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .generate-form {
@@ -20,47 +22,50 @@
 }
 
 .generate-form input[type="date"] {
-  padding: 0.6rem;
+  padding: 0.8rem;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #dfe6e9;
   font-size: 1rem;
+  font-family: var(--font-principal);
 }
 
 .generate-form button {
-  padding: 0.7rem 1.5rem;
+  padding: 0.8rem 1.5rem;
   border: none;
   border-radius: 5px;
-  background-color: #2a9d8f; /* Un color verde azulado */
-  color: white;
+  background-color: var(--color-acento);
+  color: var(--color-primario);
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .generate-form button:hover {
-  background-color: #268a7e;
+  background-color: var(--color-acento-hover);
 }
 
 .generate-form button:disabled {
-  background-color: #ccc;
+  background-color: #b2bec3;
   cursor: not-allowed;
 }
 
 .success-message {
-  color: #2e7d32;
-  background-color: #c8e6c9;
+  color: var(--color-exito);
+  background-color: rgba(46, 125, 50, 0.1);
   padding: 1rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   border-radius: 5px;
   text-align: center;
+  font-weight: 500;
 }
 
 .error-message {
-  color: #d32f2f;
-  background-color: #ffcdd2;
+  color: var(--color-error);
+  background-color: rgba(198, 40, 40, 0.1);
   padding: 1rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   border-radius: 5px;
   text-align: center;
+  font-weight: 500;
 }
